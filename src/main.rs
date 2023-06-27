@@ -1,3 +1,5 @@
+extern crate core;
+
 use std::collections::{BTreeMap, HashMap};
 use std::{fs, mem};
 use serde::{Deserialize, Serialize};
@@ -6,8 +8,9 @@ use serde_json::de::IoRead;
 use serde_with::serde_as;
 use serde_json::{Number, Result};
 use core::option::Option;
+use std::io::repeat;
 
-#[derive(Serialize, Deserialize,PartialEq)]
+#[derive(Serialize, Deserialize,PartialEq,Debug)]
 enum EdgeShape
 {
     Circle,
@@ -17,7 +20,7 @@ enum EdgeShape
 }
 
 
-#[derive(Serialize, Deserialize, Copy, Clone, PartialEq, Eq, Ord, PartialOrd)]
+#[derive(Serialize, Deserialize, Copy, Clone, PartialEq, Eq, Ord, PartialOrd,Debug)]
 struct Vector
 {
     x: i8,
@@ -63,6 +66,17 @@ impl Rotation
         result
     }
 
+    fn get_turns(&self) -> u8
+    {
+        let mut result : u8 = 0;
+        let mut temp = Rotation::new();
+        while temp.rotate_n(result as usize) != *self
+        {
+            result += 1;
+        }
+        return result
+    }
+
     fn rotate_n(&self, count: usize) -> Self
     {
         let mut result = *self;
@@ -85,7 +99,7 @@ fn test_rotate()
     assert_eq!(Rotation::new(), r.rotate_n(4));
 }
 
-#[derive(Serialize, Deserialize, Hash, PartialEq, Copy, Clone)]
+#[derive(Serialize, Deserialize, Hash, PartialEq, Copy, Clone,Debug)]
 #[repr(u8)]
 enum Orientation
 {
@@ -126,7 +140,7 @@ impl From<Orientation> for Vector
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize,Debug)]
 struct JigsawEdge
 {
     shape: EdgeShape,
@@ -135,7 +149,7 @@ struct JigsawEdge
 }
 
 #[serde_as]
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize,Debug)]
 struct JigsawPiece
 {
     #[serde_as(as = "Vec<(_, _)>")]
@@ -150,7 +164,7 @@ impl PartialEq for JigsawPiece
     }
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy,Debug)]
 struct Place<'a>
 {
     rotation: Rotation,
@@ -158,6 +172,7 @@ struct Place<'a>
     piece: &'a JigsawPiece,
 }
 
+#[derive(Debug)]
 struct Field<'a>
 {
     pieces: &'a Vec<JigsawPiece>,
@@ -221,17 +236,39 @@ impl<'a> Field<'a>
     }
 }
 
+#[derive(Debug)]
+struct Solution
+{
+    id: u8,
+    turns: u8
+}
+
+
+
 fn main() {
     let data = fs::read_to_string("puzzle.json").unwrap();
     let pieces: Vec<JigsawPiece> = serde_json::from_str(&data).unwrap();
     //let mut p= [Place{rotation: Rotation::new(),place: Vector{x:1, y:1},piece: None} ;9];
     let places = Vec::<Place>::new();
     let mut field = Field { places, pieces: &pieces };
-    let f = field.next_move();
 
-    let f1 = f[0].next_move();
-    for v in f1{
-        v.is_valid();
+    let mut stack = field.next_move();
+    while stack.len() > 0
+    {
+        let f = stack.pop().unwrap();
+        if f.is_valid()
+        {
+            let mut n = f.next_move();
+            if n.len() == 0
+            {
+                let result : Vec<_> = f.places.iter().map(|p|Solution{id: p.piece.id, turns: p.rotation.get_turns()}).collect();
+                println!("{:?}", result);
+
+            }
+            stack.append(&mut n);
+
+        }
     }
+
     println!("Hello, world!");
 }
