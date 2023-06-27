@@ -1,0 +1,443 @@
+[
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Circle",
+          "is_inverted": false,
+          "numbers": [
+            "4e",
+            "6F"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Circle",
+          "is_inverted": true,
+          "numbers": [
+            "66",
+            "70"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Triangle",
+          "is_inverted": true,
+          "numbers": [
+            "41",
+            "51"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Rect",
+          "is_inverted": false,
+          "numbers": [
+            "72",
+            "59"
+          ]
+        }
+      ]
+    ],
+    "id": 0
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Trapeze",
+          "is_inverted": false,
+          "numbers": [
+            "67",
+            "53"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Trapeze",
+          "is_inverted": true,
+          "numbers": [
+            "59",
+            "59"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Rect",
+          "is_inverted": true,
+          "numbers": [
+            "66",
+            "68"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Rect",
+          "is_inverted": false,
+          "numbers": [
+            "67",
+            "54"
+          ]
+        }
+      ]
+    ],
+    "id": 1
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Trapeze",
+          "is_inverted": true,
+          "numbers": [
+            "61",
+            "2e"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Circle",
+          "is_inverted": false,
+          "numbers": [
+            "62",
+            "72"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Trapeze",
+          "is_inverted": false,
+          "numbers": [
+            "63",
+            "72"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Rect",
+          "is_inverted": true,
+          "numbers": [
+            "6e",
+            "79"
+          ]
+        }
+      ]
+    ],
+    "id": 2
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Triangle",
+          "is_inverted": true,
+          "numbers": [
+            "52",
+            "48"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Circle",
+          "is_inverted": false,
+          "numbers": [
+            "72",
+            "7a"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Circle",
+          "is_inverted": false,
+          "numbers": [
+            "21",
+            "51"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Rect",
+          "is_inverted": true,
+          "numbers": [
+            "49",
+            "42"
+          ]
+        }
+      ]
+    ],
+    "id": 3
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Trapeze",
+          "is_inverted": false,
+          "numbers": [
+            "41",
+            "72"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Triangle",
+          "is_inverted": true,
+          "numbers": [
+            "74",
+            "72"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Triangle",
+          "is_inverted": true,
+          "numbers": [
+            "41",
+            "51"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Rect",
+          "is_inverted": false,
+          "numbers": [
+            "41",
+            "62"
+          ]
+        }
+      ]
+    ],
+    "id": 4
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Triangle",
+          "is_inverted": true,
+          "numbers": [
+            "3a",
+            "41"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Triangle",
+          "is_inverted": false,
+          "numbers": [
+            "72",
+            "65"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Rect",
+          "is_inverted": false,
+          "numbers": [
+            "6e",
+            "66"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Trapeze",
+          "is_inverted": true,
+          "numbers": [
+            "47",
+            "6e"
+          ]
+        }
+      ]
+    ],
+    "id": 5
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Trapeze",
+          "is_inverted": false,
+          "numbers": [
+            "54",
+            "68"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Circle",
+          "is_inverted": true,
+          "numbers": [
+            "75",
+            "21"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Rect",
+          "is_inverted": true,
+          "numbers": [
+            "5a",
+            "42"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Circle",
+          "is_inverted": false,
+          "numbers": [
+            "51",
+            "76"
+          ]
+        }
+      ]
+    ],
+    "id": 6
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Triangle",
+          "is_inverted": false,
+          "numbers": [
+            "76",
+            "61"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Triangle",
+          "is_inverted": true,
+          "numbers": [
+            "31",
+            "35"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Trapeze",
+          "is_inverted": true,
+          "numbers": [
+            "54",
+            "42"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Trapeze",
+          "is_inverted": false,
+          "numbers": [
+            "6e",
+            "70"
+          ]
+        }
+      ]
+    ],
+    "id": 7
+  },
+  {
+    "edges": [
+      [
+        "Top",
+        {
+          "shape": "Rect",
+          "is_inverted": false,
+          "numbers": [
+            "56",
+            "66"
+          ]
+        }
+      ],
+      [
+        "Right",
+        {
+          "shape": "Circle",
+          "is_inverted": true,
+          "numbers": [
+            "76",
+            "61"
+          ]
+        }
+      ],
+      [
+        "Bottom",
+        {
+          "shape": "Rect",
+          "is_inverted": true,
+          "numbers": [
+            "61",
+            "74"
+          ]
+        }
+      ],
+      [
+        "Left",
+        {
+          "shape": "Triangle",
+          "is_inverted": false,
+          "numbers": [
+            "75",
+            "67"
+          ]
+        }
+      ]
+    ],
+    "id": 8
+  }
+]
