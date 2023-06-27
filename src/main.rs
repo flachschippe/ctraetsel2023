@@ -7,7 +7,7 @@ use serde_with::serde_as;
 use serde_json::{Number, Result};
 use core::option::Option;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize,PartialEq)]
 enum EdgeShape
 {
     Circle,
@@ -17,11 +17,27 @@ enum EdgeShape
 }
 
 
-#[derive(Serialize, Deserialize, Copy, Clone)]
+#[derive(Serialize, Deserialize, Copy, Clone, PartialEq, Eq, Ord, PartialOrd)]
 struct Vector
 {
     x: i8,
     y: i8,
+}
+
+impl Vector
+{
+    fn rotate(& self, rotation: &Rotation) -> Vector
+    {
+        let mut result = *self;
+        result.x = rotation.matrix[0][0] * self.x + rotation.matrix[0][1] * self.y;
+        result.y = rotation.matrix[1][0] * self.x + rotation.matrix[1][1] * self.y;
+
+        result
+    }
+    fn add(&self, other: &Vector) -> Vector
+    {
+        Vector {x: self.x + other.x, y: self.y + other.y}
+    }
 }
 
 #[derive(Clone, Copy, PartialEq, Debug)]
@@ -139,7 +155,7 @@ struct Place<'a>
 {
     rotation: Rotation,
     place: Vector,
-    piece: Option<&'a JigsawPiece>,
+    piece: &'a JigsawPiece,
 }
 
 struct Field<'a>
@@ -150,7 +166,7 @@ struct Field<'a>
 
 impl<'a> Field<'a> {
     fn next_move(&self) -> Vec<Self> {
-        let laid_pieces: Vec<_> = self.places.iter().map(|p| p.piece).filter(|p| p.is_some()).map(|p| p.unwrap()).collect();
+        let laid_pieces: Vec<_> = self.places.iter().map(|p| p.piece).collect();
         let available_pieces: Vec<_> = self.pieces.iter().filter(|p| !laid_pieces.contains(p)).collect();
         let available_count = available_pieces.len();
         available_pieces.iter()
@@ -158,7 +174,7 @@ impl<'a> Field<'a> {
                 Place {
                     rotation: Rotation::new().rotate_n(i),
                     place: Field::position_to_vector(laid_pieces.len() as i8),
-                    piece: Some(p),
+                    piece: p,
                 }).collect::<Vec<_>>())
             .flatten()
             .map(|p|
@@ -170,11 +186,33 @@ impl<'a> Field<'a> {
     }
 }
 
+struct EdgePlacement<'a>
+{
+    edge: & 'a JigsawEdge,
+    place: Vector
+}
+
 impl<'a> Field<'a>
 {
-    fn set(&mut self, position: i8, piece: &'a JigsawPiece)
+    fn is_valid(&self) -> bool
     {
-        self.places[position as usize] = Place { rotation: Rotation::new(), place: Field::position_to_vector(position), piece: Option::from(piece) };
+        let pl  = self.places.iter().map(|place|
+            {
+                place.piece.edges.iter()
+                    .map(|edge|
+                        EdgePlacement{
+                            edge: edge.1,
+                            place: place.place.add(&Vector::from(*edge.0).rotate(&(place.rotation))) })
+            }).flatten()
+            .fold(BTreeMap::<Vector,Vec<& 'a JigsawEdge>>::new(), |mut map, placement|
+                {
+                    map.entry(placement.place).or_default().push(placement.edge);
+                    map
+                });
+        let is_invalid = pl.values()
+            .filter(|p| p.len() == 2)
+            .any(|v| v[0].is_inverted == v[1].is_inverted || v[0].shape != v[1].shape);
+        !is_invalid
     }
 
     fn position_to_vector(position: i8) -> Vector
@@ -187,8 +225,13 @@ fn main() {
     let data = fs::read_to_string("puzzle.json").unwrap();
     let pieces: Vec<JigsawPiece> = serde_json::from_str(&data).unwrap();
     //let mut p= [Place{rotation: Rotation::new(),place: Vector{x:1, y:1},piece: None} ;9];
-    let places: Vec<_> = (0..9).into_iter().map(|i| Place { rotation: Rotation::new(), place: Field::position_to_vector(i), piece: None }).collect();
+    let places = Vec::<Place>::new();
     let mut field = Field { places, pieces: &pieces };
     let f = field.next_move();
+
+    let f1 = f[0].next_move();
+    for v in f1{
+        v.is_valid();
+    }
     println!("Hello, world!");
 }
