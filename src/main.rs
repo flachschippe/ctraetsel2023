@@ -224,15 +224,23 @@ impl<'a> Field<'a>
                     map.entry(placement.place).or_default().push(placement.edge);
                     map
                 });
-        let is_invalid = pl.values()
-            .filter(|p| p.len() == 2)
+        let connections: Vec<_>=  pl.values()
+            .filter(|p| p.len() == 2).collect();
+
+
+        let is_invalid = connections.iter()
             .any(|v| v[0].is_inverted == v[1].is_inverted || v[0].shape != v[1].shape);
+
+        if connections.len() > 10 && !is_invalid
+        {
+            println!("{:?}", connections.into_iter().flatten().collect::<Vec<_>>());
+        }
         !is_invalid
     }
 
     fn position_to_vector(position: i8) -> Vector
     {
-        Vector { x: position * 2 % 6 + 1, y: (position / 3) * 2 + 1 }
+        Vector { x: position * 2 % 6 + 1, y: (-position / 3) * 2 - 1 }
     }
 }
 
